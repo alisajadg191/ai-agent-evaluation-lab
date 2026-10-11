@@ -1,0 +1,63 @@
+{
+  "total": 16,
+  "passed": 16,
+  "failed": 0,
+  "pass_rate": 1.0,
+  "errors": 0,
+  "timeouts": 0,
+  "latency_samples": 16,
+  "latency_p50_ms": 0.07059699998990254,
+  "latency_p95_ms": 0.28345900000203983,
+  "metrics": {
+    "abstention_correctness": {
+      "mean": 1.0,
+      "samples": 16,
+      "unavailable": 0
+    },
+    "answer_phrase_recall": {
+      "mean": 1.0,
+      "samples": 16,
+      "unavailable": 0
+    },
+    "citation_validity": {
+      "mean": 1.0,
+      "samples": 7,
+      "unavailable": 0
+    },
+    "forbidden_tool_safety": {
+      "mean": 1.0,
+      "samples": 16,
+      "unavailable": 0
+    },
+    "groundedness_proxy": {
+      "mean": 1.0,
+      "samples": 7,
+      "unavailable": 0
+    },
+    "latency_budget": {
+      "mean": 1.0,
+      "samples": 16,
+      "unavailable": 0
+    },
+    "retrieval_integrity": {
+      "mean": 1.0,
+      "samples": 7,
+      "unavailable": 0
+    },
+    "retrieval_precision": {
+      "mean": 1.0,
+      "samples": 7,
+      "unavailable": 0
+    },
+    "retrieval_recall": {
+      "mean": 1.0,
+      "samples": 7,
+      "unavailable": 0
+    },
+    "tool_call_correctness": {
+      "mean": 1.0,
+      "samples": 16,
+      "unavailable": 0
+    }
+  }
+}

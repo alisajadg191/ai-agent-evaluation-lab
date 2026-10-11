@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-agent-evaluation-lab"
+version = "1.0.0"
+description = "Reproducible local evaluations for RAG and agents, with optional LangSmith experiments"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.10,<3", "httpx[socks]>=0.28,<1", "langsmith>=0.4,<1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1", "build>=1,<2"]
+
+[project.scripts]
+agent-eval = "evaluation_lab.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["evaluation_lab*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+ignore = ["E501"]

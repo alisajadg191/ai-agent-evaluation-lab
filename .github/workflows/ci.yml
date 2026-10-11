@@ -1,0 +1,42 @@
+name: Verify Evaluation Lab
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: '3.11'
+          - os: ubuntu-latest
+            python: '3.12'
+          - os: ubuntu-latest
+            python: '3.13'
+          - os: windows-latest
+            python: '3.12'
+    env:
+      LANGSMITH_TRACING: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements.lock
+      - run: python -m pip install -r requirements.lock
+      - run: python -m pip install -e . --no-deps
+      - run: python -m ruff check .
+      - run: python -m ruff format --check .
+      - run: python -m pytest -q --junitxml=reports/unit-tests.xml
+      - run: python scripts/verify_demo.py
+      - run: python -m build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-${{ matrix.os }}-python-${{ matrix.python }}
+          path: reports/

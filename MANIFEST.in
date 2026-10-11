@@ -1,0 +1,7 @@
+include requirements.lock .env.example
+recursive-include datasets *.json *.jsonl
+recursive-include tests *.py
+recursive-include docs *.md *.json *.html
+recursive-include examples *.py
+recursive-include scripts *.py
+recursive-include .github *.yml

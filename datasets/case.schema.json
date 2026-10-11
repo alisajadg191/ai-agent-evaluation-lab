@@ -1,0 +1,168 @@
+{
+  "$defs": {
+    "Document": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 20000,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ],
+      "title": "Document",
+      "type": "object"
+    },
+    "Inputs": {
+      "additionalProperties": false,
+      "properties": {
+        "question": {
+          "maxLength": 5000,
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "documents": {
+          "items": {
+            "$ref": "#/$defs/Document"
+          },
+          "maxItems": 100,
+          "title": "Documents",
+          "type": "array"
+        },
+        "payload": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Payload",
+          "type": "object"
+        }
+      },
+      "required": [
+        "question"
+      ],
+      "title": "Inputs",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "Reference": {
+      "additionalProperties": false,
+      "properties": {
+        "answer_contains": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Answer Contains",
+          "type": "array"
+        },
+        "relevant_document_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Relevant Document Ids",
+          "type": "array"
+        },
+        "expected_tools": {
+          "items": {
+            "$ref": "#/$defs/ToolCall"
+          },
+          "title": "Expected Tools",
+          "type": "array"
+        },
+        "tool_order": {
+          "default": "ordered",
+          "enum": [
+            "ordered",
+            "unordered"
+          ],
+          "title": "Tool Order",
+          "type": "string"
+        },
+        "forbidden_tools": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Forbidden Tools",
+          "type": "array"
+        }
+      },
+      "title": "Reference",
+      "type": "object"
+    },
+    "ToolCall": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "arguments": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Arguments",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "ToolCall",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "task": {
+      "enum": [
+        "rag",
+        "agent",
+        "abstention"
+      ],
+      "title": "Task",
+      "type": "string"
+    },
+    "inputs": {
+      "$ref": "#/$defs/Inputs"
+    },
+    "reference": {
+      "$ref": "#/$defs/Reference"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "task",
+    "inputs",
+    "reference"
+  ],
+  "title": "Case",
+  "type": "object"
+}
